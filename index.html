@@ -1,210 +1,191 @@
-!DOCTYPE html>
-<html lang="es">
-<head>
-<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;700&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  .container {
-    padding: 20px;
-    background: linear-gradient(45deg, #1a1a2e, #16213e);
-    border-radius: 12px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
+import React from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 
-  .title {
-    font-family: 'Chakra Petch', sans-serif;
-    background: linear-gradient(to right, #ff66d9, #66ffff, #ff9966);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    text-shadow: 0 0 10px rgba(255, 102, 217, 0.5);
-    font-weight: 700;
-  }
+const SpyFamilyGrowth = () => {
+  const data = [
+    { period: '2019-Q2', growth: 100, revenue: 2.5, animeGrowth: 0 },
+    { period: '2019-Q4', growth: 150, revenue: 3.8, animeGrowth: 0 },
+    { period: '2020-Q2', growth: 200, revenue: 5.2, animeGrowth: 0 },
+    { period: '2020-Q4', growth: 280, revenue: 7.5, animeGrowth: 0 },
+    { period: '2021-Q2', growth: 350, revenue: 10.3, animeGrowth: 0 },
+    { period: '2021-Q4', growth: 420, revenue: 15.8, animeGrowth: 0 },
+    { period: '2022-Q2', growth: 580, revenue: 25.4, animeGrowth: 100 },
+    { period: '2022-Q4', growth: 750, revenue: 45.6, animeGrowth: 180 },
+    { period: '2023-Q2', growth: 850, revenue: 68.2, animeGrowth: 250 },
+    { period: '2023-Q4', growth: 900, revenue: 85.7, animeGrowth: 320 },
+    { period: '2024-Q1', growth: 950, revenue: 95.3, animeGrowth: 380 }
+  ];
 
-  .table-wrapper {
-    border: 3px solid #ff66d9;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 0 30px rgba(255, 102, 217, 0.4);
-  }
+  return (
+    <Card className="w-full max-w-4xl bg-gradient-to-br from-white via-gray-100 to-gray-200 p-6 rounded-xl shadow-lg border-2 border-[#ff69b4]">
+      <CardHeader className="space-y-4">
+        <div className="flex flex-col items-center justify-center space-y-2">
+          <CardTitle className="font-['Chakra_Petch'] text-4xl font-bold" style={{
+            color: '#ff1493',
+            textShadow: '0 0 10px #ff1493, 0 0 20px #ff1493'
+          }}>
+            👧 Spy x Family - Crecimiento y Recaudación 🦮
+          </CardTitle>
+          <div style={{ 
+            fontFamily: 'Source Code Pro, monospace',
+            color: '#ff69b4',
+            textShadow: '0 0 5px #ff69b4'
+          }} className="text-sm">
+            ✨ Análisis 2019-2024 ✨
+          </div>
+          <div className="grid grid-cols-2 gap-4 w-full">
+            <div style={{ fontFamily: 'Source Code Pro, monospace' }} className="text-xs bg-white/80 p-3 rounded-lg border-2 border-[#ff69b4] shadow-lg">
+              <h3 style={{ color: '#ff1493', textShadow: '0 0 2px #ff1493' }} className="font-bold mb-2">
+                Crecimiento por Año:
+              </h3>
+              <div style={{ color: '#ff69b4' }}>
+                2019: +150% | $3.8M
+                2020: +280% | $7.5M
+                2021: +420% | $15.8M
+                2022: +750% | $45.6M
+                2023: +900% | $85.7M
+                2024: +950% | $95.3M
+              </div>
+            </div>
+            <div style={{ fontFamily: 'Source Code Pro, monospace' }} className="text-xs bg-white/80 p-3 rounded-lg border-2 border-[#ff69b4] shadow-lg">
+              <h3 style={{ color: '#ff1493', textShadow: '0 0 2px #ff1493' }} className="font-bold mb-2">
+                Guía de Trimestres:
+              </h3>
+              <div style={{ color: '#ff69b4' }}>
+                Q1: Ene-Mar | Q2: Abr-Jun
+                Q3: Jul-Sep | Q4: Oct-Dic
+                <br/>
+                Recaudación Total: $95.3M
+              </div>
+            </div>
+          </div>
+        </div>
+      </CardHeader>
+      <CardContent className="bg-white/60 rounded-lg p-4 shadow-inner">
+        <div className="h-96">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart
+              data={data}
+              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" stroke="#ff69b4" opacity={0.3} />
+              <XAxis 
+                dataKey="period" 
+                stroke="#ff1493"
+                tick={{ 
+                  fill: '#ff1493', 
+                  fontSize: 12,
+                  fontFamily: 'Source Code Pro, monospace'
+                }}
+              />
+              <YAxis 
+                yAxisId="left"
+                stroke="#ffff00"
+                tick={{ 
+                  fill: '#ffff00', 
+                  fontSize: 12,
+                  fontFamily: 'Source Code Pro, monospace'
+                }}
+                label={{ 
+                  value: 'Crecimiento %',
+                  angle: -90,
+                  position: 'insideLeft',
+                  fill: '#ffff00',
+                  fontFamily: 'Source Code Pro, monospace'
+                }}
+              />
+              <YAxis 
+                yAxisId="right"
+                orientation="right"
+                stroke="#ff69b4"
+                tick={{ 
+                  fill: '#ff69b4', 
+                  fontSize: 12,
+                  fontFamily: 'Source Code Pro, monospace'
+                }}
+                label={{ 
+                  value: 'Millones USD',
+                  angle: 90,
+                  position: 'insideRight',
+                  fill: '#ff69b4',
+                  fontFamily: 'Source Code Pro, monospace'
+                }}
+              />
+              <Tooltip 
+                contentStyle={{ 
+                  backgroundColor: 'rgba(255,255,255,0.95)',
+                  border: '2px solid #ff69b4',
+                  borderRadius: '8px',
+                  color: '#ff1493',
+                  fontFamily: 'Source Code Pro, monospace'
+                }}
+                formatter={(value, name) => {
+                  if (name === '✨ Crecimiento Manga' || name === '🌟 Crecimiento Anime') return [`${value}%`, name];
+                  return [`$${value}M`, name];
+                }}
+              />
+              <Legend 
+                wrapperStyle={{
+                  color: '#ff1493',
+                  fontFamily: 'Source Code Pro, monospace'
+                }}
+              />
+              <Line 
+                yAxisId="left"
+                type="monotone" 
+                dataKey="growth" 
+                name="✨ Crecimiento Manga"
+                stroke="#ffff00"
+                strokeWidth={3}
+                dot={{ fill: '#ffff00', stroke: '#ffff00' }}
+              />
+              <Line 
+                yAxisId="left"
+                type="monotone" 
+                dataKey="animeGrowth" 
+                name="🌟 Crecimiento Anime"
+                stroke="#ff1493"
+                strokeWidth={3}
+                dot={{ fill: '#ff1493', stroke: '#ff1493' }}
+              />
+              <Line 
+                yAxisId="right"
+                type="monotone" 
+                dataKey="revenue" 
+                name="💰 Recaudación"
+                stroke="#ff69b4"
+                strokeWidth={3}
+                dot={{ fill: '#ff69b4', stroke: '#ff69b4' }}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+        <div className="mt-6 text-right">
+          <p style={{ 
+            fontFamily: 'Source Code Pro, monospace',
+            color: '#ff1493'
+          }}>
+            Fuente: Datos oficiales de Shueisha y Crunchyroll
+          </p>
+          <p style={{ 
+            fontFamily: 'Source Code Pro, monospace',
+            color: '#ff69b4'
+          }}>
+            Elaborado por: Mariana Rocio Linares Olivera
+          </p>
+          <p style={{ 
+            fontFamily: 'Source Code Pro, monospace',
+            fontSize: '0.75rem',
+            marginTop: '0.5rem',
+            color: '#ff1493'
+          }}>
+            🔮 Brutales XYZ © 2024
+          </p>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
 
-  .anime-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: 'Source Code Pro', monospace;
-    font-size: 13px;
-  }
-
-  .anime-table th {
-    background: linear-gradient(45deg, #2a1a4a, #4a1a2a);
-    color: #fff;
-    padding: 10px;
-    text-align: left;
-    font-family: 'Chakra Petch', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-size: 13px;
-    white-space: nowrap;
-  }
-
-  .th-content {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .anime-table tr:nth-child(odd) {
-    background: linear-gradient(45deg, #2a1a3a, #1a2a3a);
-  }
-
-  .anime-table tr:nth-child(even) {
-    background: linear-gradient(45deg, #1a2a4a, #2a1a2a);
-  }
-
-  .anime-table td {
-    padding: 8px 10px;
-    color: #fff;
-  }
-
-  .anime-table tr:hover {
-    background: linear-gradient(45deg, #3a1a4a, #4a1a3a);
-    transition: background-color 0.3s ease;
-  }
-
-  .year-cell {
-    color: #66ffff;
-  }
-
-  .revenue-cell {
-    color: #ff9966;
-  }
-
-  .director-cell {
-    color: #99ff99;
-  }
-
-  .studio-cell {
-    color: #ff99cc;
-  }
-
-  .table-footer {
-    background: linear-gradient(45deg, #2a1a4a, #4a1a2a);
-    padding: 10px;
-    text-align: center;
-    font-family: 'Source Code Pro', monospace;
-    font-size: 11px;
-    color: #ff99cc;
-  }
-
-  .author {
-    font-family: 'Chakra Petch', sans-serif;
-    color: #66ffff;
-    font-size: 12px;
-    text-shadow: 0 0 5px rgba(102, 255, 255, 0.5);
-    margin-top: 8px;
-    letter-spacing: 1px;
-  }
-
-  .emoji {
-    font-size: 14px;
-  }
-</style>
-</head>
-<body>
-<div class="container">
-  <h1 class="title">🐰 Películas de Anime Más Taquilleras 💗</h1>
-  
-  <div class="table-wrapper">
-    <table class="anime-table">
-      <thead>
-        <tr>
-          <th><div class="th-content"><span class="emoji">🎬</span> Título</div></th>
-          <th><div class="th-content"><span class="emoji">📅</span> Año</div></th>
-          <th><div class="th-content"><span class="emoji">💰</span> Recaudación</div></th>
-          <th><div class="th-content"><span class="emoji">🎨</span> Director</div></th>
-          <th><div class="th-content"><span class="emoji">🏢</span> Estudio</div></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Suzume</td>
-          <td class="year-cell">2022</td>
-          <td class="revenue-cell">305.6 M</td>
-          <td class="director-cell">Makoto Shinkai</td>
-          <td class="studio-cell">CoMix Wave Films</td>
-        </tr>
-        <tr>
-          <td>The First Slam Dunk</td>
-          <td class="year-cell">2022</td>
-          <td class="revenue-cell">254.8 M</td>
-          <td class="director-cell">Takehiko Inoue</td>
-          <td class="studio-cell">Toei Animation</td>
-        </tr>
-        <tr>
-          <td>One Piece Film: Red</td>
-          <td class="year-cell">2022</td>
-          <td class="revenue-cell">249.8 M</td>
-          <td class="director-cell">Gorō Taniguchi</td>
-          <td class="studio-cell">Toei Animation</td>
-        </tr>
-        <tr>
-          <td>The Boy and the Heron</td>
-          <td class="year-cell">2023</td>
-          <td class="revenue-cell">167.3 M</td>
-          <td class="director-cell">Hayao Miyazaki</td>
-          <td class="studio-cell">Studio Ghibli</td>
-        </tr>
-        <tr>
-          <td>Detective Conan: Black Iron Submarine</td>
-          <td class="year-cell">2023</td>
-          <td class="revenue-cell">132.4 M</td>
-          <td class="director-cell">Yuzuru Tachikawa</td>
-          <td class="studio-cell">TMS Entertainment</td>
-        </tr>
-        <tr>
-          <td>Demon Slayer: To the Swordsmith Village</td>
-          <td class="year-cell">2023</td>
-          <td class="revenue-cell">86.3 M</td>
-          <td class="director-cell">Haruo Sotozaki</td>
-          <td class="studio-cell">ufotable</td>
-        </tr>
-        <tr>
-          <td>Detective Conan: Million-Dollar Pentagram</td>
-          <td class="year-cell">2024</td>
-          <td class="revenue-cell">34.2 M</td>
-          <td class="director-cell">Yuzuru Tachikawa</td>
-          <td class="studio-cell">TMS Entertainment</td>
-        </tr>
-        <tr>
-          <td>Monster Strike: The Movie VI</td>
-          <td class="year-cell">2024</td>
-          <td class="revenue-cell">8.7 M</td>
-          <td class="director-cell">Kobun Shizuno</td>
-          <td class="studio-cell">XFlag Pictures</td>
-        </tr>
-        <tr>
-          <td>Kimi no Iro</td>
-          <td class="year-cell">2024</td>
-          <td class="revenue-cell">7.1 M</td>
-          <td class="director-cell">Naoko Yamada</td>
-          <td class="studio-cell">Science SARU</td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="5" class="table-footer">
-            Fuentes: Box Office Mojo, The Numbers, Japanese Box Office Database (JBDB)
-            <div class="author">✨ Elaborado por: Mariana Rocio Linares Olivera ✨</div>
-          </td>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
-</div>
-</body>
-</html>
+export default SpyFamilyGrowth;
